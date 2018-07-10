@@ -40,8 +40,8 @@ app.get('/blog/:numero', controller.blog)
 
 app.get('/personas', controller.getPersonas)
 app.post('/personas', controller.insertPersona)
-app.put('/personas', controller.updatePersona)
-app.delete('/personas', controller.deletePersona)
+app.put('/personas/:id', controller.updatePersona)
+app.delete('/personas/:id', controller.deletePersona)
 
 // app.listen recibe 2 parametros, un número que es el puerto donde escucharé
 // y una función callback que ejecutará cuando estoy corriendo
