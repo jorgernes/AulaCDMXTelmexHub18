@@ -48,7 +48,9 @@ function updatePersona (req, res) {
         let db = conn.db(dbName)
         
         db.collection('personas')
-        .update(req.body, function (err, data){
+        .update({_id: req.body._id},{
+            $set{name: "Andy"}
+         }, function (err, data){
             res.send(data)
         })
     })
@@ -59,7 +61,7 @@ function deletePersona (req, res) {
         let db = conn.db(dbName)
         
         db.collection('personas')
-        .delete(req.body, function (err, data){
+        .delete({_id: req.params._id}, function (err, data){
             res.send(data)
         })
     })
