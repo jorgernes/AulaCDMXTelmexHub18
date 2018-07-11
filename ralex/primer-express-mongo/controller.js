@@ -31,6 +31,20 @@ function getPersonas (req, res) {
         })
     })
 }
+function getPersona (req, res) {
+    client.connect(url, function (err, conn) {
+        if (err) console.log(err)
+        let db = conn.db(dbName)
+        let o_id = mongo.ObjectId(req.params.id)
+        db.collection('personas')
+        .findOne(
+            {'_id': o_id},
+            function(err, data) {
+                res.send(data)
+            }
+        )
+    })
+}
 function insertPersona (req, res) {
     client.connect(url, function (err, conn) {
         if (err) console.log(err)
@@ -42,11 +56,45 @@ function insertPersona (req, res) {
         })
     })
 }
+function updatePersona (req, res) {
+    client.connect(url, function (err, conn) {
+        if (err) console.log(err)
+        let db = conn.db(dbName)
+        let o_id = new mongo.ObjectId(req.params.id)
+        db.collection('personas')
+        .update(
+            {'_id': o_id },
+            {
+                $set: req.body
+            },
+            function (err, data){
+                res.send(data)
+            }
+        )
+    })
+}
+function removePersona (req, res) {
+    client.connect(url, function (err, conn) {
+        if (err) console.log(err)
+        let db = conn.db(dbName)
+        let o_id = new mongo.ObjectId(req.params.id)
+        db.collection('personas')
+        .delete(
+            {'_id': o_id },
+            function (err, data){
+                res.send(data)
+            }
+        )
+    })
+}
 
 module.exports = {
     blog,
     carta,
     saludo,
     getPersonas,
-    insertPersona
+    getPersona,
+    insertPersona,
+    updatePersona,
+    removePersona
 }
